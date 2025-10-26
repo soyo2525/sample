@@ -2,9 +2,14 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>タイトル</title>
+<title>PORTFOLIO</title>
 <link href="css/reset.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+
+<!-- グーグルフォント -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <!--jQuery本体-->
 <script src="js/jquery-1.11.2.min.js"></script>
 
@@ -18,6 +23,71 @@ $(function(){
 </head>
 
 <body>
+<!-- ヘッダー：左にロゴ、右にパンくず -->
+  <header class="header">
+    <div class="wrap">
+      <div class="logo"><a href="#">SOYO</a></div>
+      <nav class="crumbs">
+        <a href="#">HOME</a> / <a href="#">ABOUT</a> / <a href="#">WORKS</a>
+      </nav>
+    </div>
+    <div class="mv"></div>
+
+    <main>
+        <!-- アバウト＿トップページ -->
+        <div class="top_about">
+            <h1 class="top_about_midasi">ABOUT</h1>
+
+            <div class="top_face"><img src="img/face_w2000xh2000.png" alt="顔写真">
+            </div>
+
+            <h2>ARAI&nbsp;SOYO</h2>
+            <p class="top_strong_points">STRONG&nbsp;POINTS</p>
+            <p class="top_strong_points_bun">共感力&nbsp;/&nbsp;創造力&nbsp;/&nbsp;前進力</p>
+            <p class="top_skills">SKILLS</p>
+            <p class="top_skills_bun">Illustrator&nbsp;/&nbsp;Photoshop&nbsp;/HTML&nbsp;/&nbsp;CSS&nbsp;/&nbsp;JavaScript&nbsp;/
+                <br>Figma&nbsp;/&nbsp;Github&nbsp;/&nbsp;Visual&nbsp;Studio&nbsp;/</p>
+
+                <!-- ボタン -->
+            <div class="top_about_btn"><a href="#">MORE</a></div>
+
+        </div>
+
+       <!-- ワークス＿トップページ -->
+        <div class="top_works">
+            <h1 class="top_works_midasi">WORKS</h1>
+
+            <a href="#">
+                <div class="top_works_portfolio"><img src="#" alt="ポートフォリオサイト写真">
+                <p class="top_works_bunrui">WEB&nbsp;SITE</p>
+                <p class="top_works_namae">ポートフォリオサイト</p>
+                </div>
+            </a>
+
+            <a href="#">
+            <div class="top_works_ring"><img src="#" alt="リングサイト写真">
+                <p class="top_works_bunrui">WEB&nbsp;SITE</p>
+                <p class="top_works_namae">アイドルサイト</p>
+            </div>
+            </a>
+
+            <a href="#">
+            <div class="top_works_neonbar"><img src="#" alt="ネオンBARリーフレット写真">
+                <p class="top_works_bunrui">GRAPHIC&nbsp;DESIGN</p>
+                <p class="top_works_namae">カクテルBAR リーフレット</p>
+            </div>
+            </a>
+            <!-- ボタン -->
+            <div class="top_works_btn">MORE</div>
+        </div>
+
+
+    </main>
+
+    <footer>
+        <p>🄫2025.ARAISOYO</p>
+    </footer>
+
 
 </body>
 
