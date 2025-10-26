@@ -12,25 +12,18 @@
 <!-- グーグルフォント -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
 <!--jQuery本体-->
- <!-- jQuery本体（CDN）…プラグイン不要なのでこれだけ -->
-  <!-- ※必ず自分のscriptより先に読み込む -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--ready関数-->
 <script>
 $(function(){
 
-    /* ============ ハンバーガー開閉 ============ */
-    // ① ボタンを押したら .gnav に is-open を付け外しする
-    $('.burger').on('click', function(){
-      $('.gnav').toggleClass('is-open');
-      // ボタンの「開いてる/閉じてる」をスクリーンリーダーに伝える
-      const opened = $('.gnav').hasClass('is-open');
-      $(this).attr('aria-expanded', opened);
-    });
-
+   
     /* ============ メインビジュアルの自動スライド ============ */
     // ① .mv 内のimgを全部取得
     const $slides = $('.mv img');
@@ -50,51 +43,55 @@ $(function(){
 </head>
 
 <body>
-<!-- ヘッダー：左にロゴ、右にパンくず -->
-  <header class="header">
+<!-- 固定ヘッダー -->
+<header class="header">
+<div class="logo">
+    <a href="#">SOYO</a>
+</div>
 
-<!-- 800px未満で出すハンバーガーボタン -->
-      <button class="burger" aria-label="メニュー" aria-expanded="false" aria-controls="global-nav">
-<!-- ただの3本線（CSSで見た目を作る） -->
-        <span></span><span></span><span></span>
-      </button>
+<!-- PC用 パンくず -->
+ <div class="header_pankuzu">
+<a href="#">HOME</a>&nbsp;/&nbsp;<a href="#about">ABOUT</a>&nbsp;/&nbsp;<a href="#works" class="works_btn">WORKS</a>
+</div>
 
 
-    <div class="wrap">
-      <div class="logo"><a href="#">SOYO</a></div>
-      <nav class="crumbs">
-        <a href="#">HOME</a> / <a href="#">ABOUT</a> / <a href="#">WORKS</a>
-      </nav>
-    </div>
 
-  </header>
+</header>
 
     <!-- ================= メインビジュアル（自動スライド） ================= -->
     <!-- 画像の順番にフェードで切替。object-fit:coverで「ぼけない全面」 -->
     <div class="mv">
-      <img src="img/mv-1.png" alt="#">
-      <img src="img/mv-2.png" alt="#">
-      <img src="img/mv-3.png" alt="#">
-      <img src="img/mv-4.png" alt="#">
+      <img src="img/mv-1.png" alt="スライド１">
+      <img src="img/mv-2.png" alt="スライド２">
+      <img src="img/mv-3.png" alt="スライド３">
+      <img src="img/mv-4.png" alt="スライド４">
     </div>
 
     <main>
         <!-- アバウト＿トップページ -->
         <div class="top_about">
             <h1 class="top_about_midasi">ABOUT</h1>
-
-            <div class="top_face"><img src="img/face_w2000xh2000.png" alt="顔写真">
+         <div class="top_about_oya">
+            <div class="top_face">
+                <img src="img/face_w2000xh2000.png" alt="顔写真">
             </div>
 
-            <h2>ARAI&nbsp;SOYO</h2>
-            <p class="top_strong_points">STRONG&nbsp;POINTS</p>
-            <p class="top_strong_points_bun">共感力&nbsp;/&nbsp;創造力&nbsp;/&nbsp;前進力</p>
-            <p class="top_skills">SKILLS</p>
-            <p class="top_skills_bun">Illustrator&nbsp;/&nbsp;Photoshop&nbsp;/HTML&nbsp;/&nbsp;CSS&nbsp;/&nbsp;JavaScript&nbsp;/
-                <br>Figma&nbsp;/&nbsp;Github&nbsp;/&nbsp;Visual&nbsp;Studio&nbsp;/</p>
+            <div class="top_about_nakami">
+                <div class="top_about_namae_yuyomi">
+                    <h2>ARAI&nbsp;SOYO</h2>
+                    <p class="top_strong_points">STRONG&nbsp;POINTS</p>
+                    <p class="top_strong_points_bun">共感力&nbsp;/&nbsp;創造力&nbsp;/&nbsp;前進力</p>
+                </div>
+                <div class="top_about_skills">
+                    <p class="top_skills">SKILLS</p>
+                    <p class="top_skills_bun">Illustrator&nbsp;/&nbsp;Photoshop&nbsp;/HTML&nbsp;/&nbsp;CSS&nbsp;/&nbsp;JavaScript&nbsp;/
+                        <br>Figma&nbsp;/&nbsp;Github&nbsp;/&nbsp;Visual&nbsp;Studio&nbsp;/</p>
+                </div>
+            </div>
+         </div>
 
                 <!-- ボタン -->
-            <div class="top_about_btn"><a href="#">MORE</a></div>
+            <div class="top_about_btn"><a href="#"><p>MORE</p></a></div>
 
         </div>
 
@@ -103,7 +100,10 @@ $(function(){
             <h1 class="top_works_midasi">WORKS</h1>
 
             <a href="#">
-                <div class="top_works_portfolio"><img src="#" alt="ポートフォリオサイト写真">
+                <div class="top_works_portfolio">
+                    <!-- サムネ入れ物（同じ画像を2回使う） -->
+                <div class="thumb" style="--img: url('img/ringsaite_mv_01_w2000xh1000.png');"></div>
+                <img src="img/ringsaite_mv_01_w2000xh1000.png" alt="ポートフォリオサイト写真">
                 <p class="top_works_bunrui">WEB&nbsp;SITE</p>
                 <p class="top_works_namae">ポートフォリオサイト</p>
                 </div>
