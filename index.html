@@ -6,16 +6,43 @@
 <link href="css/reset.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
+<!-- ビューポート -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!-- グーグルフォント -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <!--jQuery本体-->
-<script src="js/jquery-1.11.2.min.js"></script>
+ <!-- jQuery本体（CDN）…プラグイン不要なのでこれだけ -->
+  <!-- ※必ず自分のscriptより先に読み込む -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!--ready関数-->
 <script>
 $(function(){
+
+    /* ============ ハンバーガー開閉 ============ */
+    // ① ボタンを押したら .gnav に is-open を付け外しする
+    $('.burger').on('click', function(){
+      $('.gnav').toggleClass('is-open');
+      // ボタンの「開いてる/閉じてる」をスクリーンリーダーに伝える
+      const opened = $('.gnav').hasClass('is-open');
+      $(this).attr('aria-expanded', opened);
+    });
+
+    /* ============ メインビジュアルの自動スライド ============ */
+    // ① .mv 内のimgを全部取得
+    const $slides = $('.mv img');
+    // ② 最初は全部隠して1枚目だけ見せる
+    let i = 0;
+    $slides.hide().eq(0).show();
+    // ③ 一定間隔で「今のをfadeOut → 次をfadeIn」
+    setInterval(function(){
+      $slides.eq(i).fadeOut(800);        // 0.8秒で消える
+      i = (i + 1) % $slides.length;      // 最後までいったら0に戻る
+      $slides.eq(i).fadeIn(800);         // 0.8秒で現れる
+    }, 3500);                             // 3.5秒ごとに切替
 
 });
 </script>
@@ -25,13 +52,31 @@ $(function(){
 <body>
 <!-- ヘッダー：左にロゴ、右にパンくず -->
   <header class="header">
+
+<!-- 800px未満で出すハンバーガーボタン -->
+      <button class="burger" aria-label="メニュー" aria-expanded="false" aria-controls="global-nav">
+<!-- ただの3本線（CSSで見た目を作る） -->
+        <span></span><span></span><span></span>
+      </button>
+
+
     <div class="wrap">
       <div class="logo"><a href="#">SOYO</a></div>
       <nav class="crumbs">
         <a href="#">HOME</a> / <a href="#">ABOUT</a> / <a href="#">WORKS</a>
       </nav>
     </div>
-    <div class="mv"></div>
+
+  </header>
+
+    <!-- ================= メインビジュアル（自動スライド） ================= -->
+    <!-- 画像の順番にフェードで切替。object-fit:coverで「ぼけない全面」 -->
+    <div class="mv">
+      <img src="img/mv-1.png" alt="#">
+      <img src="img/mv-2.png" alt="#">
+      <img src="img/mv-3.png" alt="#">
+      <img src="img/mv-4.png" alt="#">
+    </div>
 
     <main>
         <!-- アバウト＿トップページ -->
