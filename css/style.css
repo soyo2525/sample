@@ -3,24 +3,55 @@
 
 /* pc版トップページ */
 
+:root{
+  --header-h: 70px;               /* ヘッダーの高さ（画面上部に固定する帯の高さ） */
+
+  /* 余白サイズ（小・中・大）
+     clamp(最小px, 理想の割合, 最大px)
+     → 画面が狭いと小さく、広いと大きく、ちょうど良く伸び縮みさせる */
+  --space-s: clamp(8px, 1.2vw, 16px);  /* 小さい余白（ボタンの内側、要素間のスキマなど） */
+  --space-m: clamp(16px, 2vw, 24px);   /* 中くらいの余白（段落間、セクション内の間隔など） */
+  --space-l: clamp(24px, 3vw, 40px);   /* 大きい余白（セクション上下、ヒーロー前後など） */
+
+  /* 横幅の最大値（＝中央寄せの“器”）。左右に16pxずつ余白を残しつつ、最大1200pxまで広がる。
+     min( A, B ) は「AとBの小さい方」を採用する式。 */
+  --wrap-w:  min(100% - 32px, 1200px);
+
+  --ink: #1E1E1E;         /* INK（インク）：基本の文字色。濃いグレー＝可読性を上げるための黒寄り色 */
+  --brand: #D64E29;       /* BRAND（ブランド色）：このサイトの“主役カラー”。目立たせたい背景や強調に使う */
+}
+
+/* 画像は枠からはみ出さない・比率を保持して縮む */
+img{
+    max-width:100%; 
+    height:auto;
+    display:block; }
+
+
 /* ヘッター＿pc版トップページ */
 header{
     font-family: "Barlow Semi Condensed", sans-serif;
      font-weight: 900;
      font-style: normal;
-     font-size: 45px;
-      color: #1E1E1E;
+     font-size:clamp(28px, 3.5vw, 45px);  /* 画面サイズに合わせて見出しサイズを自動調整 */
+     color: var(--ink);                     /* 文字色は共通変数 --ink を使用（濃いグレー） */
 }
 
 .header {
     border: 5px solid #50954c;
-    display: flex;
-    width: 100%;
-    height: 70px;
+    position: sticky;
+     top: 0; 
+     z-index: 1000; /* スクロールしても常に上に“くっつく”帯 */
 
     display: flex;
-   justify-content:space-between
-  
+    justify-content:space-between;
+
+    height: var(--header-h);       /* 高さは共通変数（70px） */               /* 高さは共通変数（70px） */
+    background: #fff;            /* 背景は白 */
+    border-bottom: 1px solid #eee;  /* 下に薄い線で区切り */
+
+    padding: 0 50px;                 /* ←左右50pxの余白 */
+  box-sizing: border-box;
     }
 
   .logo{
@@ -30,7 +61,7 @@ header{
      font-style: normal;
      font-size: 45px; */
 
-     margin-left: 50px; 
+     margin-left: 0; /* 固定マージンは撤廃。器（--wrap-w）内で中央寄せする思想。 */
      display: flex;
      align-items: center;     /* ←上下まんなか */
   }
@@ -44,7 +75,7 @@ header{
   /* パンくずの基本デザイン */
 .header_pankuzu{
   border: 5px solid #acce25; 
-  margin-right: 50px;
+  /* margin-right: 50px; */
   display: flex;
   align-items: center;     /* ←上下まんなか */
 }
@@ -59,13 +90,16 @@ header{
     color: #D64E29;
 } 
 
-/* ｍｖ＿pc版トップページ */
+/*============== ｍｖ＿pc版トップページ ==============*/
+/* 画面に応じて高さが伸び縮み：
+   最低 320px、理想 60vh（画面の縦の60%）、最大 700px */
 .mv {
-    border: 5px solid #c6c61e;
+  border: 5px solid #c6c61e;
   position: relative;  /* 子要素（img）を重ねるための基準 */
   width: 100%;
-  height: 700px;       /* 好きな高さに調整してOK */
+  height: clamp(320px, 60vh, 700px);     /* 好きな高さに調整してOK */
   overflow: hidden;    /* 枠からはみ出た部分を隠す */
+  border-bottom: 1px solid #eee;    /* 下に薄い線で区切り */
 }
 
 /* スライドの画像たち */
@@ -78,10 +112,13 @@ header{
   display: none;       /* 最初は全部非表示にしておく（jQueryで最初の1枚だけ表示） */
 }
 
-/* アバウト＿pc版トップページ */
+/*============== アバウト＿pc版トップページ ==============*/
 .top_about{
      border: 5px solid #2f1ec6;
-     background-color: #D64E29;
+     /* background-color: #D64E29; */
+     background-color: var(--brand);     /* ここはサイトの“主役カラー”の背景にする */
+     padding-top: var(--space-l);        /* 上下の余白（大） */
+     padding-bottom: var(--space-l);
 
      /* display: flex;
      flex-direction: column;
@@ -93,34 +130,64 @@ header{
    font-family: "Barlow Semi Condensed", sans-serif;
    font-weight: 900;
    font-style: normal;
-   font-size: 96px;
-   color: #1E1E1E;
+   /* font-size: 96px; */
+   /* color: #1E1E1E; */
 
-    margin-left: 50px;
-    margin-top: 80px;
+   width: var(--wrap-w); margin: 0 auto;          /* 中央の器に合わせる */
+  font-size: clamp(40px, 8vw, 96px);             /* 画面に応じて大きさ可変（最小40px〜最大96px） */
+  color: var(--ink);                              /* 濃い文字色でコントラストを取る */
+  /* margin-top: clamp(24px, 5vw, 80px);            */
+   /* 上の余白も可変 */
+  margin-bottom: var(--space-m);                 /* 下の余白（中） */
+
+     margin-left: 50px;
+    /* margin-top: 80px; */ 
 }
 
+/* 画像（左）＋テキスト（右）の2カラム。
+   grid-template-columns: 左カラム は最小240px〜最大で横幅の約32%、右は残り全て。 */
+
 .top_about_oya{
+
+    width: var(--wrap-w);
     border: 5px solid #1ec699; 
     display: flex;
     justify-content: space-between;
 
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
+
+    margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(240px, 32%) 1fr; /* ←割合でレイアウト（固定pxをやめる） */
+  align-items: center;                            /* 画像とテキストの縦位置を揃える */
+  column-gap: clamp(16px, 4vw, 40px);            /* カラム間のスキマ（可変） */
+  row-gap: var(--space-m);                        /* 縦方向のスキマ（狭い時の折返し用） */
+  margin-bottom: clamp(24px, 5vw, 50px);          /* セクション内の下余白 */
 }
 
 .top_face img{
      border: 5px solid #1ec621;
-    width: 344px;
-    height: 344px;
+    /* width: 344px;
+    height: 344px; */
 
-    margin-left: 50px;
+     /*clampで最小200px〜最大344px、通常は画面幅の約28%で可変 */
+
+    /* margin-left: 50px;
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 50px; */
+
+    width: clamp(200px, 28vw, 344px);
+    height: auto;                 /* 高さは画像比率に任せる（歪み防止） */
+    aspect-ratio: 1/1;            /* 正方形比率をキープ（未対応ブラウザでもheight:autoで自然に見える） */
+  object-fit: cover;            /* はみ出しはトリミング */
+
 }
 
 .top_about_nakami{
    border: 5px solid #c61ec6;
-   margin-right: 50px; 
+   /* margin-right: 50px;  */
+    margin-right: 0;      /* 固定マージン撤廃：器で中央寄せする方針 */
+  text-align: right;    /* PC時は右寄せ（デザインの意図） */
    
 }
 
@@ -134,25 +201,31 @@ header{
 
 .top_about_namae_yuyomi{
    border: 5px solid #3ac61e; 
-   margin-bottom: 240px;
+   /* margin-bottom: 240px; */
+   margin-bottom: clamp(40px, 12vw, 240px);
 }
 
+/* 名前（大きく白で目立たせる） */
 .top_about .top_about_nakami .top_about_namae_yuyomi h2{
     font-family: "Barlow Semi Condensed", sans-serif;
    font-weight: 900;
    font-style: normal;
-   font-size: 64px;
+   /* font-size: 64px; */
+   font-size: clamp(28px, 5vw, 64px);
    color: #ffffff;
 }
 
+/* STRONG POINTS 見出し（濃い文字色） */
 .top_about .top_about_nakami .top_about_namae_yuyomi .top_strong_points{
     font-family: "Barlow Semi Condensed", sans-serif;
    font-weight: 900;
    font-style: normal;
-   font-size: 40px;
-   color: #1E1E1E;
+   /* font-size: 40px; */
+   /* color: #1E1E1E; */
+   font-size: clamp(18px, 3.4vw, 40px);
+   color: var(--ink);
 }
-
+/* STRONG POINTS の文（白で背景とコントラスト） */
 .top_about .top_about_nakami .top_about_namae_yuyomi .top_strong_points_bun{
    font-family: "Noto Sans JP", sans-serif;
    font-weight: 900;
@@ -160,7 +233,7 @@ header{
    font-size: 40px;
    color: #ffffff; 
 }
-
+/* スキル領域（枠は使わない） */
 .top_about_skills{
     border: 3px solid #ce1010;
 }
@@ -169,45 +242,61 @@ header{
    font-family: "Barlow Semi Condensed", sans-serif;
    font-weight: 900;
    font-style: normal;
-   font-size: 40px;
-   color: #1E1E1E; 
+   /* font-size: 40px;
+   color: #1E1E1E;  */
+   font-size: clamp(18px, 3.4vw, 40px);
+  color: var(--ink);
 }
 
 .top_about_skills .top_skills_bun{
    font-family: "Barlow Semi Condensed", sans-serif;
    font-weight: 900;
    font-style: normal;
-   font-size: 40px;
+   /* font-size: 40px; */
+   font-size: clamp(16px, 2.8vw, 32px);
    color: #ffffff;  
 }
-
+/* ボタン
+   横幅・高さともにclampで可変、内側の文字は上下左右ど真ん中（flex） */
 .top_about_btn{
    background-color: #ffffff;
    border: 3px solid #1E1E1E;
-   width: 175px;
-   height: 75px;
+   /* width: 175px;
+   height: 75px; */
+   width: clamp(160px, 18vw, 220px);  /* 小さい画面では160px、大きい画面では最大220pxまで広がる */
+   height: clamp(56px, 7vw, 75px);    /* 同上：高さも可変でバランス良く */
+
 
    display: flex;              /* ←ボタンの中を“並べられる箱”にする */
   align-items: center;        /* ←上下まんなか */
   justify-content: center;    /* ←左右まんなか */
 
-  margin: auto;   
-  margin-bottom: 100px;
+   margin: auto;   
+  /*margin-bottom: 100px; */
+  /* 上マージン, 左右, 下マージン（可変）
+     PCでは右寄せにしたい時は margin-left:auto; や margin-right:○○ を加える */
+  /* margin: clamp(24px, 6vw, 100px) 0  clamp(24px, 6vw, 100px) auto; */
+  /* 右端からの距離を決めたいとき： */
+  /* margin-right: clamp(16px, 6vw, 50px); */
 }
 
 .top_about_btn p {
    font-family: "Barlow Semi Condensed", sans-serif;
    font-weight: 900;
    font-style: normal;
-   font-size: 36px;
-   color: #1E1E1E;  
+   /* font-size: 36px;
+   color: #1E1E1E;   */
+   font-size: clamp(22px, 3vw, 36px);
+  color: var(--ink);
 
   
 }
 
 .top_about_btn a {
-   color: #1E1E1E;          /* ←黒にする */
+   /* color: #1E1E1E;         */
+     /* ←黒にする */
   text-decoration: none;   /* 下線を消す */
+  color: var(--ink);
 
   
 }
@@ -247,3 +336,32 @@ header{
 
 
 /* フッター＿pc版トップページ */
+
+
+/* =========================================================
+   ブレイクポイント（スマホ向けの上書きルール）
+   画面幅が 800px 以下になったら、ここが発動
+   ========================================================= */
+@media (max-width: 800px){
+
+  /* スマホではヘッダーを少し低くする（指での操作がしやすい程度） */
+  :root{ --header-h: 64px; }
+
+  /* ヘッダー内の要素間のスキマを少し詰める（狭い画面で無駄を削る） */
+  .header > .row{ gap: 8px; }
+
+  /* ABOUT は縦並びへ（2カラム → 1カラムに切替）
+     テキストは中央寄せにして読みやすく */
+  .top_about_oya{
+    grid-template-columns: 1fr; /* 1カラム */
+    text-align: center;         /* 要素内の文字も中央寄せ（見た目の整え） */
+  }
+  .top_about_nakami{
+    text-align: center;         /* PCの右寄せ→SPでは中央寄せにする */
+  }
+
+  /* ボタンも中央に（親の幅が狭いので中央配置が扱いやすい） */
+  .top_about_btn{
+    margin: var(--space-m) auto 0 auto; /* 上に少し余白＋左右はautoで中央寄せ */
+  }
+}
